@@ -18,8 +18,15 @@ namespace Godot.StandardAssets.RollerBall
         // Called when the node enters the scene tree for the first time.
         public override void _Ready()
         {
+            // The way to set up Raycast is different here.
+            // You need to assign a Node called RayCast in the Scene View.
             rayCast = (RayCast)GetNode("GroundRayCast");
             rayCast.SetAsToplevel(true);
+
+            // In the original Standard Assets, Unity use this to set the maximum angular velocity.
+            // GetComponent<Rigidbody>().maxAngularVelocity = m_MaxAngularVelocity;
+            // Unfortunately, there is no maxAngularVelocity in Godot.
+            // Maybe someone know another workaround?
         }
 
         // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -35,17 +42,22 @@ namespace Godot.StandardAssets.RollerBall
 
         public void Move(Vector3 moveDirection, bool jump)
         {
+            // If using torque to rotate the ball...
             if (m_UseTorque)
             {
+                // ... add torque around the axis defined by the move direction.
                 this.AddTorque(new Vector3(moveDirection.z, 0, -moveDirection.x) * m_MovePower);
             }
             else
             {
+                // Otherwise add force in the move direction.
                 ApplyCentralImpulse(moveDirection * m_MovePower);
             }
 
+            // If on the ground and jump is pressed...
             if (rayCast.IsColliding() && jump)
             {
+                // ... add force in upwards.
                 ApplyCentralImpulse(Vector3.Up * m_JumpPower);
             }
         }
