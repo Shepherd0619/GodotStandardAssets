@@ -2,30 +2,30 @@
 
 [ext_resource path="res://RollerBall/Scripts/RollerBall.cs" type="Script" id=1]
 [ext_resource path="res://RollerBall/Scripts/RollerBallUserControl.cs" type="Script" id=2]
-[ext_resource path="res://RollerBall/Textures/white_wood.png" type="Texture" id=3]
+[ext_resource path="res://RollerBall/Textures/white_wood.png" type="Texture2D" id=3]
 
 [sub_resource type="SphereMesh" id=3]
 
-[sub_resource type="SpatialMaterial" id=5]
+[sub_resource type="StandardMaterial3D" id=5]
 albedo_texture = ExtResource( 3 )
 
-[sub_resource type="SphereShape" id=4]
+[sub_resource type="SphereShape3D" id=4]
 
 [node name="BallPlayer" type="Node"]
 script = ExtResource( 2 )
 
-[node name="Ball" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0 )
+[node name="Ball" type="RigidBody3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0 )
 continuous_cd = true
 can_sleep = false
 script = ExtResource( 1 )
 
-[node name="MeshInstance" type="MeshInstance" parent="Ball"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ball"]
 mesh = SubResource( 3 )
 material/0 = SubResource( 5 )
 
-[node name="CollisionShape" type="CollisionShape" parent="Ball"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ball"]
 shape = SubResource( 4 )
 
-[node name="GroundRayCast" type="RayCast" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0 )
+[node name="GroundRayCast" type="RayCast3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0 )

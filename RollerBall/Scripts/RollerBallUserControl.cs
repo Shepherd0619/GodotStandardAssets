@@ -3,7 +3,7 @@ using System;
 
 namespace Godot.StandardAssets.RollerBall
 {
-    public class RollerBallUserControl : Node
+    public partial class RollerBallUserControl : Node
     {
         // Declare member variables here. Examples:
         // private int a = 2;
@@ -11,7 +11,7 @@ namespace Godot.StandardAssets.RollerBall
         private RollerBall ball;
         private Vector3 move;
 
-        private Camera cam;
+        private Camera3D cam;
         private Vector3 camForward;
         private bool jump;
 
@@ -28,18 +28,18 @@ namespace Godot.StandardAssets.RollerBall
             // You can use path or just the name of the object to locate the node.
 
             ball = GetNode("/root/Root/Ball") as RollerBall;
-            cam = GetNode("/root/Root/Camera") as Camera;
+            cam = GetNode("/root/Root/Camera3D") as Camera3D;
 
             if(ball != null){
-                StartPosition = ball.GlobalTransform.origin;
+                StartPosition = ball.GlobalTransform.Origin;
             }
         }
 
         // Called every frame. 'delta' is the elapsed time since the previous frame.
-        public override void _Process(float delta)
+        public override void _Process(double delta)
         {
             if(Input.IsActionJustPressed("reset")){
-                ball.GlobalTranslation = StartPosition;
+                ball.GlobalPosition = StartPosition;
                 ball.AngularVelocity = Vector3.Zero;
                 ball.LinearVelocity = Vector3.Zero;
             }
@@ -61,9 +61,8 @@ namespace Godot.StandardAssets.RollerBall
 
                 // For more info, I suggest you use a IDE which support decompile to locate the definition and see the logic.
 
-                var CamBasis = cam.GlobalTransform.basis;
-                var basis = CamBasis.Rotated(CamBasis.x, -CamBasis.GetEuler().x);
-                move = basis.Xform(new Vector3(h, 0, v));
+                camForward = (cam.Basis.Z.Normalized() * new Vector3(1, 0, 1)).Normalized();
+                move = (v*camForward + h*cam.Basis.X.Normalized()).Normalized();
             }
             else
             {
@@ -71,7 +70,7 @@ namespace Godot.StandardAssets.RollerBall
             }
         }
 
-        public override void _PhysicsProcess(float delta)
+        public override void _PhysicsProcess(double delta)
         {
             ball.Move(move, jump);
             jump = false;

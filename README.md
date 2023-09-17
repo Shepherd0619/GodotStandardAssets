@@ -23,6 +23,13 @@ Everyone are free to use, modify the source code as long as give me the credit.
 
 Anyways, happy programming!
 
+# WARNING
+Be advised! This repo's Godot version has been updated to 4.x for new features. 
+
+Some scripts in this repo has been modified!
+
+For more info, please examine the commit history.
+
 # Contact
 Twitter, CSDN, Github: @shepherd0619
 
