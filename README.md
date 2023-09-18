@@ -1,6 +1,10 @@
 # Godot Standard Assets
 A personal project that port Unity Standard Assets Example Projects to Godot Engine.
 
+**This repo has been set to archive due to some reasons.**
+
+For more info, please visit https://t.co/SoBpggXpOb.
+
 # Goal
 Help people who wish to switch from Unity to Godot set on journey by showing the difference of workflow, scripting, components, etc. and provide solution/suggestion to them.
 
